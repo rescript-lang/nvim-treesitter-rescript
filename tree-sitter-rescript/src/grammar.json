@@ -5405,7 +5405,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_unescaped_template_string_fragment"
+                "name": "_template_chars"
               },
               {
                 "type": "SYMBOL",
@@ -5672,6 +5672,10 @@
     {
       "type": "SYMBOL",
       "name": "_newline"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_template_chars"
     },
     {
       "type": "SYMBOL",
