@@ -53,6 +53,8 @@ module.exports = grammar({
     [$.nested_module_expression, $.module_expression],
     [$.tuple_type, $._function_type_parameter],
     [$.variant, $.variant_pattern],
+    [$.list, $.list_pattern],
+    [$.primary_expression, $.spread_pattern],
     [$.primary_expression, $._literal_pattern],
     [$.expression_statement, $.switch_match],
     [$.expression_statement, $.ternary_expression],
@@ -131,6 +133,7 @@ module.exports = grammar({
 
     type_declaration: $ => seq(
       'type',
+      optional('rec'),
       $.type_identifier,
       optional($.type_parameters),
       optional(seq(
@@ -315,6 +318,7 @@ module.exports = grammar({
       $.object,
       $.tuple,
       $.array,
+      $.list,
       $.variant,
       $.if_expression,
       $.switch_expression,
@@ -394,6 +398,18 @@ module.exports = grammar({
       commaSep($.expression),
       optional(','),
       ']'
+    ),
+
+    list: $ => seq(
+      'list',
+      '{',
+      optional(commaSep1t($._list_element)),
+      '}'
+    ),
+
+    _list_element: $ => choice(
+      $.expression,
+      $.spread_element,
     ),
 
     if_expression: $ => seq(
@@ -541,6 +557,7 @@ module.exports = grammar({
       $.polyvar_pattern,
       $.record_pattern,
       $.tuple_pattern,
+      $.list_pattern,
     ),
 
     variant_pattern: $ => seq(
@@ -598,6 +615,24 @@ module.exports = grammar({
       '(',
       commaSep2t($.pattern),
       ')',
+    ),
+
+    list_pattern: $ => seq(
+      'list',
+      '{',
+      optional(commaSep1t($._list_element_pattern)),
+      '}',
+    ),
+
+    _list_element_pattern: $ => choice(
+      $.pattern,
+      $._literal_pattern,
+      $.spread_pattern,
+    ),
+
+    spread_pattern: $ => seq(
+      '...',
+      $.identifier,
     ),
 
     _jsx_element: $ => choice($.jsx_element, $.jsx_self_closing_element),
