@@ -68,8 +68,11 @@
 ; Meta
 ;-----
 
-(decorator_identifier) @annotation
-("@") @annotation
+[
+ "@"
+ "@@"
+ (decorator_identifier)
+] @annotation
 
 (extension_identifier) @keyword
 ("%") @keyword
@@ -100,6 +103,12 @@
 ] @conditional
 
 [
+  "."
+  ","
+  "|"
+] @punctuation.delimiter
+
+[
   "++"
   "+"
   "+."
@@ -123,13 +132,8 @@
   "="
   ":="
   "->"
+  (uncurry)
 ] @operator
-
-[
-  "."
-  ","
-  "|"
-] @punctuation.delimiter
 
 [
   "("
@@ -153,7 +157,6 @@
   "?"
   "=>"
   "..."
-  (optional)
 ] @punctuation.special
 
 (ternary_expression ["?" ":"] @operator)
