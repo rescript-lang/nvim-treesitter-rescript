@@ -124,6 +124,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "array_pattern",
+        "named": true
+      },
+      {
         "type": "identifier",
         "named": true
       },
@@ -326,6 +330,53 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "array_pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "as_aliasing",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "pattern",
+          "named": true
+        },
+        {
+          "type": "spread_pattern",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "template_string",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "tuple",
           "named": true
         }
       ]
@@ -699,6 +750,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "as_aliasing",
+          "named": true
+        },
         {
           "type": "false",
           "named": true
@@ -1244,6 +1299,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "as_aliasing",
+          "named": true
+        },
         {
           "type": "false",
           "named": true
@@ -2050,6 +2109,10 @@
       "required": true,
       "types": [
         {
+          "type": "as_aliasing",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         },
@@ -2088,6 +2151,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "as_aliasing",
+          "named": true
+        },
         {
           "type": "pattern",
           "named": true
@@ -2285,6 +2352,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "type_annotation",
+          "named": true
+        },
         {
           "type": "variant_identifier",
           "named": true
