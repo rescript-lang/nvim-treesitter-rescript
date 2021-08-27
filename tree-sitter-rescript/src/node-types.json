@@ -736,6 +736,10 @@
           "named": true
         },
         {
+          "type": "type_annotation",
+          "named": true
+        },
+        {
           "type": "uncurry",
           "named": true
         },

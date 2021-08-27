@@ -2871,15 +2871,32 @@
       ]
     },
     "_variant_pattern_parameter": {
-      "type": "CHOICE",
+      "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_literal_pattern"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_literal_pattern"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "pattern"
+            }
+          ]
         },
         {
-          "type": "SYMBOL",
-          "name": "pattern"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "type_annotation"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
