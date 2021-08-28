@@ -1836,6 +1836,10 @@
       "required": true,
       "types": [
         {
+          "type": "decorator",
+          "named": true
+        },
+        {
           "type": "property_identifier",
           "named": true
         },
