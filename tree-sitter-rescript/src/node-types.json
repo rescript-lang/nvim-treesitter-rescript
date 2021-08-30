@@ -658,6 +658,53 @@
     }
   },
   {
+    "type": "exception",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "as_aliasing",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "pattern",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "switch_pattern_condition",
+          "named": true
+        },
+        {
+          "type": "template_string",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "tuple",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "expression_statement",
     "named": true,
     "fields": {},
@@ -1977,6 +2024,10 @@
           "named": true
         },
         {
+          "type": "exception",
+          "named": true
+        },
+        {
           "type": "false",
           "named": true
         },
@@ -2624,6 +2675,10 @@
   {
     "type": "escape_sequence",
     "named": true
+  },
+  {
+    "type": "exception",
+    "named": false
   },
   {
     "type": "external",

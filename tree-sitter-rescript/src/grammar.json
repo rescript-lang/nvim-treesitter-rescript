@@ -2232,6 +2232,42 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_switch_exception_pattern"
+              },
+              "named": true,
+              "value": "exception"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_switch_value_pattern"
+            }
+          ]
+        }
+      ]
+    },
+    "_switch_exception_pattern": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "exception"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_switch_value_pattern"
+        }
+      ]
+    },
+    "_switch_value_pattern": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SYMBOL",
               "name": "pattern"
             },
