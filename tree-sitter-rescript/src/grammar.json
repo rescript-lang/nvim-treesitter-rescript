@@ -1409,10 +1409,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "polyvar"
-        },
-        {
-          "type": "SYMBOL",
           "name": "unit"
         },
         {
@@ -1438,6 +1434,10 @@
         {
           "type": "SYMBOL",
           "name": "variant"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "polyvar"
         },
         {
           "type": "SYMBOL",
@@ -2189,7 +2189,7 @@
           "value": "{"
         },
         {
-          "type": "REPEAT1",
+          "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
             "name": "switch_match"
@@ -2202,24 +2202,28 @@
       ]
     },
     "switch_match": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "REPEAT1",
-          "content": {
+      "type": "PREC_DYNAMIC",
+      "value": -1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_switch_pattern"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "=>"
+          },
+          {
             "type": "SYMBOL",
-            "name": "_switch_pattern"
+            "name": "_switch_match_body"
           }
-        },
-        {
-          "type": "STRING",
-          "value": "=>"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_switch_match_body"
-        }
-      ]
+        ]
+      }
     },
     "_switch_pattern": {
       "type": "SEQ",
@@ -5110,6 +5114,32 @@
         }
       ]
     },
+    "polyvar": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "polyvar_identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "variant_arguments"
+              },
+              "named": true,
+              "value": "arguments"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
     "_qualified_type_identifier": {
       "type": "CHOICE",
       "members": [
@@ -5215,19 +5245,6 @@
       "type": "PATTERN",
       "value": "[A-Z][a-zA-Z0-9_]*"
     },
-    "polyvar": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "#"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[a-zA-Z0-9_]*"
-        }
-      ]
-    },
     "polyvar_identifier": {
       "type": "SEQ",
       "members": [
@@ -5258,8 +5275,13 @@
                   ]
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "string"
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "string"
+                  },
+                  "named": true,
+                  "value": "polyvar_string"
                 }
               ]
             }
@@ -6123,10 +6145,6 @@
       "_function_type_parameter"
     ],
     [
-      "variant",
-      "variant_pattern"
-    ],
-    [
       "list",
       "list_pattern"
     ],
@@ -6160,6 +6178,17 @@
     ],
     [
       "variant"
+    ],
+    [
+      "variant",
+      "variant_pattern"
+    ],
+    [
+      "polyvar"
+    ],
+    [
+      "polyvar",
+      "polyvar_pattern"
     ],
     [
       "_literal_pattern"
