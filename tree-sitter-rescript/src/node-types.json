@@ -166,6 +166,10 @@
         "named": true
       },
       {
+        "type": "character",
+        "named": true
+      },
+      {
         "type": "extension_expression",
         "named": true
       },
@@ -345,6 +349,10 @@
       "types": [
         {
           "type": "as_aliasing",
+          "named": true
+        },
+        {
+          "type": "character",
           "named": true
         },
         {
@@ -547,6 +555,21 @@
     }
   },
   {
+    "type": "character",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "decorated",
     "named": true,
     "fields": {},
@@ -667,6 +690,10 @@
       "types": [
         {
           "type": "as_aliasing",
+          "named": true
+        },
+        {
+          "type": "character",
           "named": true
         },
         {
@@ -799,6 +826,10 @@
       "types": [
         {
           "type": "as_aliasing",
+          "named": true
+        },
+        {
+          "type": "character",
           "named": true
         },
         {
@@ -1348,6 +1379,10 @@
       "types": [
         {
           "type": "as_aliasing",
+          "named": true
+        },
+        {
+          "type": "character",
           "named": true
         },
         {
@@ -2057,6 +2092,10 @@
           "named": true
         },
         {
+          "type": "character",
+          "named": true
+        },
+        {
           "type": "exception",
           "named": true
         },
@@ -2198,6 +2237,10 @@
       "types": [
         {
           "type": "as_aliasing",
+          "named": true
+        },
+        {
+          "type": "character",
           "named": true
         },
         {
@@ -2550,6 +2593,10 @@
     "named": false
   },
   {
+    "type": "'",
+    "named": false
+  },
+  {
     "type": "(",
     "named": false
   },
@@ -2714,6 +2761,10 @@
     "named": false
   },
   {
+    "type": "export",
+    "named": false
+  },
+  {
     "type": "external",
     "named": false
   },
@@ -2791,6 +2842,10 @@
   },
   {
     "type": "|",
+    "named": false
+  },
+  {
+    "type": "|>",
     "named": false
   },
   {

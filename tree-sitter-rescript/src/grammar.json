@@ -323,6 +323,18 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "export"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "STRING",
           "value": "type"
         },
@@ -1272,8 +1284,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "let"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "export"
+            },
+            {
+              "type": "STRING",
+              "value": "let"
+            }
+          ]
         },
         {
           "type": "CHOICE",
@@ -1394,6 +1415,10 @@
         {
           "type": "SYMBOL",
           "name": "template_string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "character"
         },
         {
           "type": "SYMBOL",
@@ -2390,8 +2415,17 @@
             "name": "primary_expression"
           },
           {
-            "type": "STRING",
-            "value": "->"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "->"
+              },
+              {
+                "type": "STRING",
+                "value": "|>"
+              }
+            ]
           },
           {
             "type": "CHOICE",
@@ -3031,6 +3065,10 @@
             {
               "type": "SYMBOL",
               "name": "template_string"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "character"
             },
             {
               "type": "SYMBOL",
@@ -6064,6 +6102,32 @@
               "value": "}"
             }
           ]
+        }
+      ]
+    },
+    "character": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "'"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[^\\\\']"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "escape_sequence"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "'"
         }
       ]
     },

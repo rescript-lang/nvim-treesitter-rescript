@@ -43,6 +43,9 @@
   "${" @punctuation.bracket
   "}" @punctuation.bracket) @embedded
 
+(character) @string.special
+(escape_sequence) @string.escape
+
 ; Other literals
 ;---------------
 
@@ -96,6 +99,7 @@
   "module"
   "as"
   "exception"
+  "export"
 ] @keyword
 
 [
@@ -134,6 +138,7 @@
   "="
   ":="
   "->"
+  "|>"
   (uncurry)
 ] @operator
 

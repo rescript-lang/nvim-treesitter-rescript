@@ -147,6 +147,7 @@ module.exports = grammar({
     ),
 
     type_declaration: $ => seq(
+      optional('export'),
       'type',
       optional('rec'),
       $.type_identifier,
@@ -292,7 +293,7 @@ module.exports = grammar({
     ),
 
     let_binding: $ => seq(
-      'let',
+      choice('export', 'let'),
       optional('rec'),
       $.pattern,
       optional($.type_annotation),
@@ -320,6 +321,7 @@ module.exports = grammar({
       $.number,
       $.string,
       $.template_string,
+      $.character,
       $.true,
       $.false,
       $.function,
@@ -513,7 +515,7 @@ module.exports = grammar({
 
     pipe_expression: $ => prec.left(seq(
       $.primary_expression,
-      '->',
+      choice('->', '|>'),
       choice(
         $.identifier,
         $.module_nested_identifier,
@@ -640,6 +642,7 @@ module.exports = grammar({
       choice(
         $.string,
         $.template_string,
+        $.character,
         $.number,
         $.true,
         $.false,
@@ -1058,6 +1061,12 @@ module.exports = grammar({
     template_substitution: $ => choice(
       seq('$', $.identifier),
       seq('${', $.expression, '}'),
+    ),
+
+    character: $ => seq(
+      "'",
+      choice(/[^\\']/, $.escape_sequence),
+      "'"
     ),
 
     _unescaped_template_string_fragment: $ =>
