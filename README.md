@@ -15,6 +15,12 @@ Add the plugin in your `init.vim`:
 Plug 'nkrkv/nvim-treesitter-rescript'
 ```
 
+or using [packer.nvim](https://github.com/wbthomason/packer.nvim):
+
+```lua
+use 'nkrkv/nvim-treesitter-rescript'
+```
+
 Install the newly available parser:
 
 ```
