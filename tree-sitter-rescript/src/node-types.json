@@ -12,10 +12,6 @@
         "named": true
       },
       {
-        "type": "nested_type_identifier",
-        "named": true
-      },
-      {
         "type": "object_type",
         "named": true
       },
@@ -33,6 +29,10 @@
       },
       {
         "type": "type_identifier",
+        "named": true
+      },
+      {
+        "type": "type_identifier_path",
         "named": true
       },
       {
@@ -106,15 +106,19 @@
     "named": true,
     "subtypes": [
       {
-        "type": "module_name",
+        "type": "functor_use",
+        "named": true
+      },
+      {
+        "type": "module_identifier",
+        "named": true
+      },
+      {
+        "type": "module_identifier_path",
         "named": true
       },
       {
         "type": "module_type_of",
-        "named": true
-      },
-      {
-        "type": "nested_module_expression",
         "named": true
       }
     ]
@@ -125,10 +129,6 @@
     "subtypes": [
       {
         "type": "array_pattern",
-        "named": true
-      },
-      {
-        "type": "identifier",
         "named": true
       },
       {
@@ -145,6 +145,10 @@
       },
       {
         "type": "tuple_pattern",
+        "named": true
+      },
+      {
+        "type": "value_identifier",
         "named": true
       },
       {
@@ -182,10 +186,6 @@
         "named": true
       },
       {
-        "type": "identifier",
-        "named": true
-      },
-      {
         "type": "if_expression",
         "named": true
       },
@@ -195,10 +195,6 @@
       },
       {
         "type": "member_expression",
-        "named": true
-      },
-      {
-        "type": "module_nested_identifier",
         "named": true
       },
       {
@@ -254,6 +250,14 @@
         "named": true
       },
       {
+        "type": "value_identifier",
+        "named": true
+      },
+      {
+        "type": "value_identifier_path",
+        "named": true
+      },
+      {
         "type": "variant",
         "named": true
       }
@@ -306,11 +310,19 @@
       "required": false,
       "types": [
         {
+          "type": "block",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         },
         {
           "type": "labeled_argument",
+          "named": true
+        },
+        {
+          "type": "module_expression",
           "named": true
         },
         {
@@ -399,7 +411,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "value_identifier",
           "named": true
         }
       ]
@@ -779,15 +791,15 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
         {
           "type": "type_annotation",
+          "named": true
+        },
+        {
+          "type": "value_identifier",
           "named": true
         }
       ]
@@ -906,7 +918,7 @@
         "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "value_identifier",
             "named": true
           }
         ]
@@ -976,6 +988,107 @@
     }
   },
   {
+    "type": "functor",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "functor",
+            "named": true
+          },
+          {
+            "type": "module_expression",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "functor_parameters",
+            "named": true
+          }
+        ]
+      },
+      "return_module_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "module_type_annotation",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "functor_parameter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "module_identifier",
+          "named": true
+        },
+        {
+          "type": "module_type_annotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functor_parameters",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "functor_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functor_use",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arguments",
+          "named": true
+        },
+        {
+          "type": "module_identifier",
+          "named": true
+        },
+        {
+          "type": "module_identifier_path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "generic_type",
     "named": true,
     "fields": {},
@@ -984,24 +1097,19 @@
       "required": true,
       "types": [
         {
-          "type": "nested_type_identifier",
-          "named": true
-        },
-        {
           "type": "type_arguments",
           "named": true
         },
         {
           "type": "type_identifier",
           "named": true
+        },
+        {
+          "type": "type_identifier_path",
+          "named": true
         }
       ]
     }
-  },
-  {
-    "type": "identifier",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "if_expression",
@@ -1118,10 +1226,6 @@
       "required": false,
       "types": [
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "jsx_element",
           "named": true
         },
@@ -1135,6 +1239,10 @@
         },
         {
           "type": "jsx_self_closing_element",
+          "named": true
+        },
+        {
+          "type": "value_identifier",
           "named": true
         }
       ]
@@ -1168,10 +1276,6 @@
       "required": false,
       "types": [
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "jsx_element",
           "named": true
         },
@@ -1185,6 +1289,10 @@
         },
         {
           "type": "jsx_self_closing_element",
+          "named": true
+        },
+        {
+          "type": "value_identifier",
           "named": true
         }
       ]
@@ -1264,7 +1372,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "value_identifier",
             "named": true
           }
         ]
@@ -1313,11 +1421,11 @@
           "named": true
         },
         {
-          "type": "identifier",
+          "type": "type_annotation",
           "named": true
         },
         {
-          "type": "type_annotation",
+          "type": "value_identifier",
           "named": true
         }
       ]
@@ -1459,7 +1567,21 @@
             "named": true
           },
           {
+            "type": "functor",
+            "named": true
+          },
+          {
             "type": "module_expression",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "module_identifier",
             "named": true
           }
         ]
@@ -1478,25 +1600,15 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "module_name",
-          "named": true
-        }
-      ]
     }
   },
   {
-    "type": "module_name",
+    "type": "module_identifier",
     "named": true,
     "fields": {}
   },
   {
-    "type": "module_nested_identifier",
+    "type": "module_identifier_path",
     "named": true,
     "fields": {},
     "children": {
@@ -1504,11 +1616,26 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "module_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "module_type_annotation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
           "named": true
         },
         {
-          "type": "module_name",
+          "type": "module_expression",
           "named": true
         }
       ]
@@ -1542,15 +1669,15 @@
           "named": true
         },
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "member_expression",
           "named": true
         },
         {
           "type": "subscript_expression",
+          "named": true
+        },
+        {
+          "type": "value_identifier",
           "named": true
         }
       ]
@@ -1576,40 +1703,6 @@
     }
   },
   {
-    "type": "nested_module_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "module_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "nested_type_identifier",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "module_name",
-          "named": true
-        },
-        {
-          "type": "type_identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "nested_variant_identifier",
     "named": true,
     "fields": {},
@@ -1618,7 +1711,7 @@
       "required": true,
       "types": [
         {
-          "type": "module_name",
+          "type": "module_identifier",
           "named": true
         },
         {
@@ -2009,7 +2102,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "value_identifier",
           "named": true
         }
       ]
@@ -2185,7 +2278,7 @@
           "named": true
         },
         {
-          "type": "identifier",
+          "type": "value_identifier",
           "named": true
         }
       ]
@@ -2325,10 +2418,6 @@
           "named": true
         },
         {
-          "type": "nested_type_identifier",
-          "named": true
-        },
-        {
           "type": "object_type",
           "named": true
         },
@@ -2342,6 +2431,10 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_identifier_path",
           "named": true
         },
         {
@@ -2380,6 +2473,25 @@
         },
         {
           "type": "type_parameters",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_identifier_path",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "module_identifier",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
           "named": true
         }
       ]
@@ -2451,6 +2563,30 @@
     "type": "unit",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "value_identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "value_identifier_path",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "module_identifier",
+          "named": true
+        },
+        {
+          "type": "value_identifier",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "variant",
