@@ -628,7 +628,7 @@
       "required": false,
       "types": [
         {
-          "type": "string",
+          "type": "expression",
           "named": true
         }
       ]
@@ -973,15 +973,35 @@
       "required": false,
       "types": [
         {
-          "type": "_type",
+          "type": "generic_type",
           "named": true
         },
         {
-          "type": "labeled_parameter",
+          "type": "object_type",
           "named": true
         },
         {
-          "type": "uncurry",
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "polyvar_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_identifier_path",
+          "named": true
+        },
+        {
+          "type": "unit_type",
           "named": true
         }
       ]
@@ -1532,6 +1552,16 @@
     "type": "member_expression",
     "named": true,
     "fields": {
+      "module": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "module_identifier",
+            "named": true
+          }
+        ]
+      },
       "property": {
         "multiple": false,
         "required": true,
@@ -1767,6 +1797,33 @@
     }
   },
   {
+    "type": "parameter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_type",
+          "named": true
+        },
+        {
+          "type": "decorator",
+          "named": true
+        },
+        {
+          "type": "labeled_parameter",
+          "named": true
+        },
+        {
+          "type": "uncurry",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parenthesized_expression",
     "named": true,
     "fields": {},
@@ -1957,7 +2014,15 @@
           "named": true
         },
         {
+          "type": "module_identifier",
+          "named": true
+        },
+        {
           "type": "string_fragment",
+          "named": true
+        },
+        {
+          "type": "value_identifier",
           "named": true
         }
       ]
@@ -2921,6 +2986,10 @@
     "named": false
   },
   {
+    "type": "json`",
+    "named": false
+  },
+  {
     "type": "let",
     "named": false
   },
@@ -2930,6 +2999,10 @@
   },
   {
     "type": "module",
+    "named": false
+  },
+  {
+    "type": "mutable",
     "named": false
   },
   {
