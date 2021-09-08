@@ -238,6 +238,10 @@
         {
           "type": "SYMBOL",
           "name": "external_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "exception_declaration"
         }
       ]
     },
@@ -519,6 +523,31 @@
         {
           "type": "SYMBOL",
           "name": "string"
+        }
+      ]
+    },
+    "exception_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "exception"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "variant_identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "variant_parameters"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -1711,7 +1740,15 @@
         },
         {
           "type": "SYMBOL",
+          "name": "try_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "call_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "raise_expression"
         },
         {
           "type": "SYMBOL",
@@ -2611,6 +2648,38 @@
         }
       ]
     },
+    "try_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "try"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block"
+        },
+        {
+          "type": "STRING",
+          "value": "catch"
+        },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "switch_match"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
     "as_aliasing": {
       "type": "SEQ",
       "members": [
@@ -2650,6 +2719,31 @@
               "named": true,
               "value": "arguments"
             }
+          }
+        ]
+      }
+    },
+    "raise_expression": {
+      "type": "PREC",
+      "value": "call",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "raise"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "SYMBOL",
+            "name": "variant"
+          },
+          {
+            "type": "STRING",
+            "value": ")"
           }
         ]
       }

@@ -50,6 +50,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "exception_declaration",
+        "named": true
+      },
+      {
         "type": "external_declaration",
         "named": true
       },
@@ -218,6 +222,10 @@
         "named": true
       },
       {
+        "type": "raise_expression",
+        "named": true
+      },
+      {
         "type": "record",
         "named": true
       },
@@ -239,6 +247,10 @@
       },
       {
         "type": "true",
+        "named": true
+      },
+      {
+        "type": "try_expression",
         "named": true
       },
       {
@@ -742,6 +754,25 @@
         },
         {
           "type": "tuple",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exception_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "variant_identifier",
+          "named": true
+        },
+        {
+          "type": "variant_parameters",
           "named": true
         }
       ]
@@ -2033,6 +2064,21 @@
     }
   },
   {
+    "type": "raise_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "variant",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "record",
     "named": true,
     "fields": {},
@@ -2395,6 +2441,25 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "try_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "switch_match",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2958,6 +3023,10 @@
     "named": false
   },
   {
+    "type": "catch",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true
   },
@@ -3022,6 +3091,10 @@
     "named": false
   },
   {
+    "type": "raise",
+    "named": false
+  },
+  {
     "type": "rec",
     "named": false
   },
@@ -3036,6 +3109,10 @@
   {
     "type": "true",
     "named": true
+  },
+  {
+    "type": "try",
+    "named": false
   },
   {
     "type": "type",
