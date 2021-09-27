@@ -1930,6 +1930,14 @@
         {
           "type": "polyvar_parameters",
           "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_identifier_path",
+          "named": true
         }
       ]
     }

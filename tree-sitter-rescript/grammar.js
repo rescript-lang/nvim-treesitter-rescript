@@ -38,6 +38,7 @@ module.exports = grammar({
       'binary_relation',
       'binary_and',
       'binary_or',
+      'coercion_relation',
       $.expression,
       $.primary_expression,
       $.function,
@@ -278,10 +279,15 @@ module.exports = grammar({
       ']',
     ),
 
-    polyvar_declaration: $ => prec.right(seq(
-      $.polyvar_identifier,
-      optional($.polyvar_parameters),
-    )),
+    polyvar_declaration: $ => prec.right(
+      choice(
+        seq(
+          $.polyvar_identifier,
+          optional($.polyvar_parameters),
+        ),
+        $._type_identifier
+      )
+    ),
 
     polyvar_parameters: $ => seq(
       '(',
@@ -374,6 +380,7 @@ module.exports = grammar({
       $.jsx_fragment,
       $.unary_expression,
       $.binary_expression,
+      $.coercion_expression,
       $.ternary_expression,
     ),
 
@@ -948,6 +955,15 @@ module.exports = grammar({
           field('operator', operator),
           field('right', $.expression)
         ))
+      )
+    ),
+
+    coercion_expression: $ => prec.left(
+      'coercion_relation',
+      seq(
+        field('left', $.expression),
+        field('operator', ':>'),
+        field('right', $._type_identifier),
       )
     ),
 
