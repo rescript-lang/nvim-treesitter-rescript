@@ -282,6 +282,7 @@ module.exports = grammar({
     polyvar_declaration: $ => prec.right(
       choice(
         seq(
+          optional($.decorator),
           $.polyvar_identifier,
           optional($.polyvar_parameters),
         ),
@@ -553,6 +554,7 @@ module.exports = grammar({
       choice(
         alias($._switch_exception_pattern, $.exception),
         $._switch_value_pattern,
+        $.polyvar_type_pattern,
       ),
     ),
 
@@ -573,6 +575,12 @@ module.exports = grammar({
     switch_pattern_condition: $ => seq(
       'if',
       $.expression,
+    ),
+
+    polyvar_type_pattern: $ => seq(
+      '#',
+      '...',
+      $._type_identifier,
     ),
 
     _switch_match_body: $ => seq(

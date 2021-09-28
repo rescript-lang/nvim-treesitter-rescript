@@ -1018,6 +1018,18 @@
             "type": "SEQ",
             "members": [
               {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "decorator"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
                 "type": "SYMBOL",
                 "name": "polyvar_identifier"
               },
@@ -1657,6 +1669,10 @@
         {
           "type": "SYMBOL",
           "name": "binary_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "coercion_expression"
         },
         {
           "type": "SYMBOL",
@@ -2568,6 +2584,10 @@
             {
               "type": "SYMBOL",
               "name": "_switch_value_pattern"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "polyvar_type_pattern"
             }
           ]
         }
@@ -2638,6 +2658,23 @@
         {
           "type": "SYMBOL",
           "name": "expression"
+        }
+      ]
+    },
+    "polyvar_type_pattern": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#"
+        },
+        {
+          "type": "STRING",
+          "value": "..."
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_type_identifier"
         }
       ]
     },
@@ -5195,6 +5232,39 @@
         }
       ]
     },
+    "coercion_expression": {
+      "type": "PREC_LEFT",
+      "value": "coercion_relation",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "left",
+            "content": {
+              "type": "SYMBOL",
+              "name": "expression"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "operator",
+            "content": {
+              "type": "STRING",
+              "value": ":>"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "right",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_type_identifier"
+            }
+          }
+        ]
+      }
+    },
     "unary_expression": {
       "type": "CHOICE",
       "members": [
@@ -6784,6 +6854,10 @@
       {
         "type": "STRING",
         "value": "binary_or"
+      },
+      {
+        "type": "STRING",
+        "value": "coercion_relation"
       },
       {
         "type": "SYMBOL",
