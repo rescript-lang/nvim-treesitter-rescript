@@ -342,10 +342,6 @@
           "named": true
         },
         {
-          "type": "string",
-          "named": true
-        },
-        {
           "type": "uncurry",
           "named": true
         }
@@ -846,11 +842,11 @@
       "required": true,
       "types": [
         {
-          "type": "arguments",
+          "type": "extension_identifier",
           "named": true
         },
         {
-          "type": "extension_identifier",
+          "type": "statement",
           "named": true
         }
       ]
@@ -2200,11 +2196,43 @@
       "required": true,
       "types": [
         {
+          "type": "as_aliasing",
+          "named": true
+        },
+        {
+          "type": "character",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
           "type": "pattern",
           "named": true
         },
         {
           "type": "shorthand_property_identifier_pattern",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "template_string",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "tuple",
           "named": true
         }
       ]
@@ -2602,6 +2630,69 @@
         },
         {
           "type": "pattern",
+          "named": true
+        },
+        {
+          "type": "tuple_pattern_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tuple_pattern_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "as_aliasing",
+          "named": true
+        },
+        {
+          "type": "character",
+          "named": true
+        },
+        {
+          "type": "exception",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "pattern",
+          "named": true
+        },
+        {
+          "type": "polyvar_type_pattern",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "switch_pattern_condition",
+          "named": true
+        },
+        {
+          "type": "template_string",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "tuple",
           "named": true
         }
       ]
