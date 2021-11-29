@@ -27,7 +27,6 @@
 ; Parameters
 ;----------------
 
-(shorthand_property_identifier_pattern) @parameter
 (list_pattern (value_identifier) @parameter)
 (spread_pattern (value_identifier) @parameter)
 
@@ -99,6 +98,7 @@
   "let"
   "module"
   "mutable"
+  "private"
   "rec"
   "type"
 ] @keyword
