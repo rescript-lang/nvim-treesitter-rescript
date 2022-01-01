@@ -2,6 +2,8 @@
 
 This repository contains a thin wrapper around [ReScript parser for Tree-sitter](https://github.com/nkrkv/tree-sitter-rescript/) to make it an easy-to-install NeoVim plugin.
 
+Also included are queries for the [`nvim-treesitter/nvim-treesitter-textobjects`](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) plugin which enable you to navigate, select, and modify ReScript code using text objects.
+
 ## Requirements
 
 - NeoVim 0.5.0+
