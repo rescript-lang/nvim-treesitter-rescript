@@ -75,13 +75,12 @@ module.exports = grammar({
     [$.polyvar],
     [$.polyvar, $.polyvar_pattern],
     [$._pattern],
-    [$.extension_expression],
     [$._record_element, $.jsx_expression],
     [$.record_field, $._record_single_field],
     [$._record_field_name, $.record_pattern],
     [$.decorator],
-    [$._statement, $._extension_expression_payload],
-    [$._statement_delimeter, $._extension_expression_payload],
+    [$._statement, $._one_or_more_statements],
+    [$._simple_extension],
   ],
 
   rules: {
@@ -99,6 +98,12 @@ module.exports = grammar({
       ';',
       $._newline,
       alias($._newline_and_comment, $.comment),
+    ),
+
+    _one_or_more_statements: $ => seq(
+      repeat($._statement),
+      $.statement,
+      optional($._statement_delimeter),
     ),
 
     statement: $ => choice(
@@ -123,10 +128,7 @@ module.exports = grammar({
 
     block: $ => prec.right(seq(
       '{',
-      optional(seq(
-        repeat($._statement),
-        $.statement
-      )),
+      optional($._one_or_more_statements),
       '}',
     )),
 
@@ -225,11 +227,10 @@ module.exports = grammar({
         '=',
         optional('private'),
         $._type,
-      )),
-      optional(seq(
-        optional($._newline),
-        'and',
-        $._type_declaration
+        optional(seq(
+          'and',
+          $._type_declaration
+        )),
       )),
     ),
 
@@ -241,6 +242,7 @@ module.exports = grammar({
 
     type_annotation: $ => seq(
       ':',
+      repeat($.decorator),
       $._inline_type,
     ),
 
@@ -328,8 +330,8 @@ module.exports = grammar({
       '{',
       choice(
         commaSep1t($._object_type_field),
-        seq('.', commaSep($._object_type_field)),
-        seq('..', commaSep($._object_type_field)),
+        seq('.', commaSept($._object_type_field)),
+        seq('..', commaSept($._object_type_field)),
       ),
       '}',
     ),
@@ -348,7 +350,9 @@ module.exports = grammar({
     ),
 
     type_arguments: $ => seq(
-      '<', commaSep1($._type), optional(','), '>'
+      '<',
+      commaSep1t($._type),
+      '>'
     ),
 
     function_type: $ => prec.left(seq(
@@ -364,11 +368,12 @@ module.exports = grammar({
 
     _function_type_parameter_list: $ => seq(
       '(',
-      commaSep(alias($.function_type_parameter, $.parameter)),
+      commaSept(alias($.function_type_parameter, $.parameter)),
       ')',
     ),
 
     function_type_parameter: $ => seq(
+      optional($.uncurry),
       repeat($.decorator),
       choice(
         $._type,
@@ -380,11 +385,19 @@ module.exports = grammar({
     let_binding: $ => seq(
       choice('export', 'let'),
       optional('rec'),
+      $._let_binding,
+    ),
+
+    _let_binding: $ => seq(
       choice($._pattern, $.unit),
       optional($.type_annotation),
       optional(seq(
         '=',
         $.expression,
+        optional(seq(
+          'and',
+          $._let_binding,
+        )),
       )),
     ),
 
@@ -490,8 +503,8 @@ module.exports = grammar({
       '{',
       choice(
         commaSep1t($._object_field),
-        seq('.', commaSep($._object_field)),
-        seq('..', commaSep($._object_field)),
+        seq('.', commaSept($._object_field)),
+        seq('..', commaSept($._object_field)),
       ),
       '}',
     ),
@@ -512,8 +525,7 @@ module.exports = grammar({
 
     array: $ => seq(
       '[',
-      commaSep($.expression),
-      optional(','),
+      commaSept($.expression),
       ']'
     ),
 
@@ -561,7 +573,7 @@ module.exports = grammar({
       '|',
       $._switch_pattern,
       '=>',
-      $._switch_match_body,
+      $._one_or_more_statements,
     )),
 
     _switch_pattern: $ => barSep1(choice(
@@ -589,12 +601,6 @@ module.exports = grammar({
       '#',
       '...',
       $._type_identifier,
-    ),
-
-    _switch_match_body: $ => seq(
-      repeat($._statement),
-      $.statement,
-      optional($._statement_delimeter),
     ),
 
     try_expression: $ => seq(
@@ -679,6 +685,7 @@ module.exports = grammar({
         $.positional_parameter,
         $.labeled_parameter,
         $.unit,
+        $.type_parameter,
       ),
     ),
 
@@ -693,6 +700,11 @@ module.exports = grammar({
       optional($.as_aliasing),
       optional($.type_annotation),
       optional(field('default_value', $._labeled_parameter_default_value)),
+    ),
+
+    type_parameter: $ => seq(
+      'type',
+      $.type_identifier,
     ),
 
     _labeled_parameter_default_value: $ => seq(
@@ -810,7 +822,7 @@ module.exports = grammar({
     jsx_expression: $ => seq(
       '{',
       optional(choice(
-        $.expression,
+        $._one_or_more_statements,
         $.spread_element
       )),
       '}'
@@ -904,7 +916,7 @@ module.exports = grammar({
 
     decorator_arguments: $ => seq(
       '(',
-      commaSep($.expression),
+      commaSept($.expression),
       ')',
     ),
 
@@ -988,49 +1000,62 @@ module.exports = grammar({
     extension_expression: $ => prec('call', seq(
       repeat1('%'),
       choice(
-        $._raw_js_extension_expression_payload,
-        seq(
-          $.extension_identifier,
-          optional($._extension_expression_payload),
-        ),
+        $._raw_js_extension,
+        $._raw_gql_extension,
+        $._simple_extension,
       ),
     )),
 
-    _raw_js_extension_expression_payload: $ => seq(
+    _simple_extension: $ => seq(
+      $.extension_identifier,
+      optional($._extension_expression_payload),
+    ),
+
+    _raw_js_extension: $ => seq(
       alias(token('raw'), $.extension_identifier),
       '(',
-      optional($._newline),
       alias($._raw_js, $.expression_statement),
-      optional($._newline),
       ')',
     ),
 
-    _raw_js: $ =>
-      choice(
-        alias($._raw_js_template_string, $.template_string),
-        alias($._raw_js_string, $.string),
-      ),
+    _raw_js: $ => choice(
+      alias($._raw_js_template_string, $.template_string),
+      alias($._raw_js_string, $.string),
+    ),
 
-    _raw_js_string: $ => alias($.string, $.raw_js), 
+    _raw_js_string: $ => alias($.string, $.raw_js),
 
     _raw_js_template_string: $ => seq(
       '`',
-      alias(repeat(choice(
-        $._template_chars,
-        choice(
-          alias('\\`', $.escape_sequence),
-          $.escape_sequence,
-        ),
-      )), $.raw_js),
+      alias(repeat($._template_string_content), $.raw_js),
+      '`',
+    ),
+
+    _raw_gql_extension: $ => seq(
+      alias(token('graphql'), $.extension_identifier),
+      '(',
+      alias($._raw_gql, $.expression_statement),
+      ')',
+    ),
+
+    _raw_gql: $ => choice(
+      alias($._raw_gql_template_string, $.template_string),
+      alias($._raw_gql_string, $.string),
+    ),
+
+    _raw_gql_string: $ => alias($.string, $.raw_gql),
+
+    _raw_gql_template_string: $ => seq(
+      '`',
+      alias(repeat($._template_string_content), $.raw_gql),
       '`',
     ),
 
     _extension_expression_payload: $ => seq(
       '(',
-      optional($._newline),
-      repeat($._statement),
-      $.statement,
-      optional($._statement_delimeter),
+      $._one_or_more_statements,
+      // explicit newline here because it won’t be reported otherwise by the scanner
+      // because we’re in parens
       optional($._newline),
       ')',
     ),
@@ -1047,8 +1072,7 @@ module.exports = grammar({
 
     variant_arguments: $ => seq(
       '(',
-      commaSep($.expression),
-      optional(','),
+      commaSept($.expression),
       ')',
     ),
 
@@ -1120,14 +1144,17 @@ module.exports = grammar({
       ),
     ),
 
-    type_identifier: $ => /[a-z_'][a-zA-Z0-9_]*/,
+    type_identifier: $ => choice(
+      /[a-z_'][a-zA-Z0-9_]*/,
+      $._escape_identifier,
+    ),
 
     value_identifier: $ => choice(
       /[a-z_][a-zA-Z0-9_']*/,
       $._escape_identifier,
     ),
 
-    _escape_identifier: $ => token(seq('\\', '"', /[^"]+/ , '"')),
+    _escape_identifier: $ => token(seq('\\"', /[^"]+/ , '"')),
 
     module_identifier: $ => /[A-Z][a-zA-Z0-9_]*/,
 
@@ -1217,15 +1244,17 @@ module.exports = grammar({
         )),
         '`',
       )),
-      repeat(choice(
-        $._template_chars,
-        $.template_substitution,
-        choice(
-          alias('\\`', $.escape_sequence),
-          $.escape_sequence,
-        ),
-      )),
+      repeat($._template_string_content),
       '`'
+    ),
+
+    _template_string_content: $ => choice(
+      $._template_chars,
+      $.template_substitution,
+      choice(
+        alias('\\`', $.escape_sequence),
+        $.escape_sequence,
+      ),
     ),
 
     template_substitution: $ => choice(
@@ -1270,4 +1299,8 @@ function commaSep2t(rule) {
 
 function commaSep(rule) {
   return optional(commaSep1(rule));
+}
+
+function commaSept(rule) {
+  return optional(commaSep1t(rule));
 }

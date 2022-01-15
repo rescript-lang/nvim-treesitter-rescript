@@ -982,6 +982,10 @@
           "named": true
         },
         {
+          "type": "type_parameter",
+          "named": true
+        },
+        {
           "type": "uncurry",
           "named": true
         },
@@ -1347,15 +1351,15 @@
       "required": false,
       "types": [
         {
+          "type": "block",
+          "named": true
+        },
+        {
           "type": "character",
           "named": true
         },
         {
           "type": "jsx_element",
-          "named": true
-        },
-        {
-          "type": "jsx_expression",
           "named": true
         },
         {
@@ -1368,6 +1372,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "spread_element",
           "named": true
         },
         {
@@ -1394,15 +1402,19 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "expression",
+          "type": "comment",
           "named": true
         },
         {
           "type": "spread_element",
+          "named": true
+        },
+        {
+          "type": "statement",
           "named": true
         }
       ]
@@ -1417,15 +1429,15 @@
       "required": false,
       "types": [
         {
+          "type": "block",
+          "named": true
+        },
+        {
           "type": "character",
           "named": true
         },
         {
           "type": "jsx_element",
-          "named": true
-        },
-        {
-          "type": "jsx_expression",
           "named": true
         },
         {
@@ -1438,6 +1450,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "spread_element",
           "named": true
         },
         {
@@ -2344,6 +2360,29 @@
     }
   },
   {
+    "type": "raw_gql",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "string_fragment",
+          "named": true
+        },
+        {
+          "type": "template_substitution",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "raw_js",
     "named": true,
     "fields": {},
@@ -2357,6 +2396,10 @@
         },
         {
           "type": "string_fragment",
+          "named": true
+        },
+        {
+          "type": "template_substitution",
           "named": true
         }
       ]
@@ -2567,6 +2610,10 @@
           "named": true
         },
         {
+          "type": "raw_gql",
+          "named": true
+        },
+        {
           "type": "raw_js",
           "named": true
         },
@@ -2734,6 +2781,10 @@
       "types": [
         {
           "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "raw_gql",
           "named": true
         },
         {
@@ -2938,9 +2989,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "decorator",
+          "named": true
+        },
         {
           "type": "function_type",
           "named": true
@@ -3011,6 +3066,11 @@
     }
   },
   {
+    "type": "type_identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "type_identifier_path",
     "named": true,
     "fields": {},
@@ -3022,6 +3082,21 @@
           "type": "module_identifier",
           "named": true
         },
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_parameter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
         {
           "type": "type_identifier",
           "named": true
@@ -3519,10 +3594,6 @@
   {
     "type": "type",
     "named": false
-  },
-  {
-    "type": "type_identifier",
-    "named": true
   },
   {
     "type": "unit_type",
