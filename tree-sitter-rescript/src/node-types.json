@@ -88,6 +88,10 @@
         "named": true
       },
       {
+        "type": "for_expression",
+        "named": true
+      },
+      {
         "type": "jsx_element",
         "named": true
       },
@@ -113,6 +117,10 @@
       },
       {
         "type": "unary_expression",
+        "named": true
+      },
+      {
+        "type": "while_expression",
         "named": true
       }
     ]
@@ -383,6 +391,10 @@
         },
         {
           "type": "tuple_pattern",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
           "named": true
         },
         {
@@ -787,6 +799,10 @@
           "named": true
         },
         {
+          "type": "type_annotation",
+          "named": true
+        },
+        {
           "type": "value_identifier",
           "named": true
         },
@@ -914,6 +930,25 @@
     }
   },
   {
+    "type": "for_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "value_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "formal_parameters",
     "named": true,
     "fields": {},
@@ -951,10 +986,6 @@
         },
         {
           "type": "polyvar_pattern",
-          "named": true
-        },
-        {
-          "type": "positional_parameter",
           "named": true
         },
         {
@@ -1767,6 +1798,10 @@
           "named": true
         },
         {
+          "type": "type_annotation",
+          "named": true
+        },
+        {
           "type": "value_identifier",
           "named": true
         },
@@ -2232,86 +2267,19 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "as_aliasing",
+          "named": true
+        },
         {
           "type": "type_identifier",
           "named": true
         },
         {
           "type": "type_identifier_path",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "positional_parameter",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "array_pattern",
-          "named": true
-        },
-        {
-          "type": "as_aliasing",
-          "named": true
-        },
-        {
-          "type": "character",
-          "named": true
-        },
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "list_pattern",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "polyvar_pattern",
-          "named": true
-        },
-        {
-          "type": "record_pattern",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "template_string",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
-          "type": "tuple_pattern",
-          "named": true
-        },
-        {
-          "type": "type_annotation",
-          "named": true
-        },
-        {
-          "type": "value_identifier",
-          "named": true
-        },
-        {
-          "type": "variant_pattern",
           "named": true
         }
       ]
@@ -2497,6 +2465,10 @@
         },
         {
           "type": "tuple_pattern",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
           "named": true
         },
         {
@@ -2746,6 +2718,10 @@
           "named": true
         },
         {
+          "type": "type_annotation",
+          "named": true
+        },
+        {
           "type": "value_identifier",
           "named": true
         },
@@ -2941,6 +2917,10 @@
         },
         {
           "type": "tuple_pattern",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
           "named": true
         },
         {
@@ -3227,6 +3207,10 @@
       "required": true,
       "types": [
         {
+          "type": "decorator",
+          "named": true
+        },
+        {
           "type": "type_annotation",
           "named": true
         },
@@ -3294,6 +3278,21 @@
       "types": [
         {
           "type": "variant_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "while_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -3504,6 +3503,10 @@
     "named": true
   },
   {
+    "type": "downto",
+    "named": false
+  },
+  {
     "type": "else",
     "named": false
   },
@@ -3528,7 +3531,15 @@
     "named": true
   },
   {
+    "type": "for",
+    "named": false
+  },
+  {
     "type": "if",
+    "named": false
+  },
+  {
+    "type": "in",
     "named": false
   },
   {
@@ -3584,6 +3595,10 @@
     "named": false
   },
   {
+    "type": "to",
+    "named": false
+  },
+  {
     "type": "true",
     "named": true
   },
@@ -3598,6 +3613,10 @@
   {
     "type": "unit_type",
     "named": true
+  },
+  {
+    "type": "while",
+    "named": false
   },
   {
     "type": "{",

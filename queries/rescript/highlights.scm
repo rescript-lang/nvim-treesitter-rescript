@@ -62,7 +62,6 @@
 
 [
  (formal_parameters (value_identifier))
- (positional_parameter (value_identifier))
  (labeled_parameter (value_identifier))
 ] @parameter
 
@@ -116,6 +115,14 @@
   "catch"
   "raise"
 ] @exception
+
+[
+  "for"
+  "in"
+  "to"
+  "downto"
+  "while"
+] @repeat
 
 [
   "."

@@ -72,6 +72,7 @@ module.exports = grammar({
     [$.variant_identifier, $.module_identifier],
     [$.variant],
     [$.variant, $.variant_pattern],
+    [$.variant_declaration, $.function_type_parameter],
     [$.polyvar],
     [$.polyvar, $.polyvar_pattern],
     [$._pattern],
@@ -81,6 +82,7 @@ module.exports = grammar({
     [$.decorator],
     [$._statement, $._one_or_more_statements],
     [$._simple_extension],
+    [$._inline_type, $.function_type_parameters],
   ],
 
   rules: {
@@ -278,6 +280,7 @@ module.exports = grammar({
     )),
 
     variant_declaration: $ => prec.right(seq(
+      optional($.decorator),
       $.variant_identifier,
       optional($.variant_parameters),
       optional($.type_annotation),
@@ -411,6 +414,8 @@ module.exports = grammar({
       $.binary_expression,
       $.coercion_expression,
       $.ternary_expression,
+      $.for_expression,
+      $.while_expression,
       $.mutation_expression,
       $.block,
     ),
@@ -601,6 +606,7 @@ module.exports = grammar({
       '#',
       '...',
       $._type_identifier,
+      optional($.as_aliasing)
     ),
 
     try_expression: $ => seq(
@@ -682,16 +688,10 @@ module.exports = grammar({
       optional($.uncurry),
       choice(
         $._pattern,
-        $.positional_parameter,
         $.labeled_parameter,
         $.unit,
         $.type_parameter,
       ),
-    ),
-
-    positional_parameter: $ => seq(
-      $._pattern,
-      $.type_annotation,
     ),
 
     labeled_parameter: $ => seq(
@@ -724,6 +724,7 @@ module.exports = grammar({
         $._literal_pattern,
         $._destructuring_pattern,
       )),
+      optional($.type_annotation),
       optional($.as_aliasing),
     )),
 
@@ -944,6 +945,22 @@ module.exports = grammar({
       ':',
       field('alternative', $.expression)
     )),
+
+    for_expression: $ => seq(
+      'for',
+      $.value_identifier,
+      'in',
+      $.expression,
+      choice('to', 'downto'),
+      $.expression,
+      $.block,
+    ),
+
+    while_expression: $ => seq(
+      'while',
+      $.expression,
+      $.block,
+    ),
 
     binary_expression: $ => choice(
       ...[

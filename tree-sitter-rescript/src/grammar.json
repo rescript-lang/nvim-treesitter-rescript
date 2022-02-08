@@ -921,6 +921,18 @@
         "type": "SEQ",
         "members": [
           {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "decorator"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
             "type": "SYMBOL",
             "name": "variant_identifier"
           },
@@ -1836,6 +1848,14 @@
         {
           "type": "SYMBOL",
           "name": "ternary_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "for_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "while_expression"
         },
         {
           "type": "SYMBOL",
@@ -2882,6 +2902,18 @@
         {
           "type": "SYMBOL",
           "name": "_type_identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "as_aliasing"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -3327,10 +3359,6 @@
             },
             {
               "type": "SYMBOL",
-              "name": "positional_parameter"
-            },
-            {
-              "type": "SYMBOL",
               "name": "labeled_parameter"
             },
             {
@@ -3342,19 +3370,6 @@
               "name": "type_parameter"
             }
           ]
-        }
-      ]
-    },
-    "positional_parameter": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_pattern"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "type_annotation"
         }
       ]
     },
@@ -3500,6 +3515,18 @@
                     }
                   ]
                 }
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "type_annotation"
+              },
+              {
+                "type": "BLANK"
               }
             ]
           },
@@ -4789,6 +4816,65 @@
           }
         ]
       }
+    },
+    "for_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value_identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "in"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "to"
+            },
+            {
+              "type": "STRING",
+              "value": "downto"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block"
+        }
+      ]
+    },
+    "while_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "while"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block"
+        }
+      ]
     },
     "binary_expression": {
       "type": "CHOICE",
@@ -7208,6 +7294,10 @@
       "variant_pattern"
     ],
     [
+      "variant_declaration",
+      "function_type_parameter"
+    ],
+    [
       "polyvar"
     ],
     [
@@ -7238,6 +7328,10 @@
     ],
     [
       "_simple_extension"
+    ],
+    [
+      "_inline_type",
+      "function_type_parameters"
     ]
   ],
   "precedences": [
