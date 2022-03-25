@@ -2798,10 +2798,6 @@
             {
               "type": "SYMBOL",
               "name": "_switch_value_pattern"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "polyvar_type_pattern"
             }
           ]
         },
@@ -2829,10 +2825,6 @@
                   {
                     "type": "SYMBOL",
                     "name": "_switch_value_pattern"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "polyvar_type_pattern"
                   }
                 ]
               }
@@ -2902,18 +2894,6 @@
         {
           "type": "SYMBOL",
           "name": "_type_identifier"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "as_aliasing"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
         }
       ]
     },
@@ -3484,6 +3464,10 @@
                   {
                     "type": "SYMBOL",
                     "name": "_destructuring_pattern"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "polyvar_type_pattern"
                   }
                 ]
               },
@@ -3510,6 +3494,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "_destructuring_pattern"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "polyvar_type_pattern"
                         }
                       ]
                     }
