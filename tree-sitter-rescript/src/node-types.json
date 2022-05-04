@@ -2496,6 +2496,10 @@
           "named": true
         },
         {
+          "type": "value_identifier_path",
+          "named": true
+        },
+        {
           "type": "variant_pattern",
           "named": true
         }

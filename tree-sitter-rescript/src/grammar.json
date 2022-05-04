@@ -3766,8 +3766,17 @@
                   "type": "SEQ",
                   "members": [
                     {
-                      "type": "SYMBOL",
-                      "name": "value_identifier"
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "value_identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "value_identifier_path"
+                        }
+                      ]
                     },
                     {
                       "type": "CHOICE",
@@ -3826,8 +3835,17 @@
                         "type": "SEQ",
                         "members": [
                           {
-                            "type": "SYMBOL",
-                            "name": "value_identifier"
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "SYMBOL",
+                                "name": "value_identifier"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "value_identifier_path"
+                              }
+                            ]
                           },
                           {
                             "type": "CHOICE",
