@@ -609,7 +609,10 @@ module.exports = grammar({
 
     try_expression: $ => seq(
       'try',
-      $.block,
+      choice(
+        $.block,
+        $.primary_expression,
+      ),
       'catch',
       '{',
       repeat($.switch_match),
@@ -639,7 +642,9 @@ module.exports = grammar({
       choice(
         $.value_identifier,
         $.value_identifier_path,
-        choice($.variant_identifier, $.nested_variant_identifier),
+        $.variant_identifier,
+        $.nested_variant_identifier,
+        $.parenthesized_expression,
       ),
     )),
 
@@ -1045,7 +1050,13 @@ module.exports = grammar({
     _raw_js_string: $ => alias($.string, $.raw_js),
 
     _raw_js_template_string: $ => seq(
-      '`',
+      token(seq(
+        optional(choice(
+          'j',
+          'js',
+        )),
+        '`',
+      )),
       alias(repeat($._template_string_content), $.raw_js),
       '`',
     ),

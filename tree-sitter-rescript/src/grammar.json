@@ -2905,8 +2905,17 @@
           "value": "try"
         },
         {
-          "type": "SYMBOL",
-          "name": "block"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "block"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "primary_expression"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -3032,17 +3041,16 @@
                 "name": "value_identifier_path"
               },
               {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "variant_identifier"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "nested_variant_identifier"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "variant_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "nested_variant_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "parenthesized_expression"
               }
             ]
           }
@@ -5801,8 +5809,37 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "`"
+          "type": "TOKEN",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "j"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "js"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "STRING",
+                "value": "`"
+              }
+            ]
+          }
         },
         {
           "type": "ALIAS",

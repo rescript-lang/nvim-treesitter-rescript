@@ -2866,6 +2866,10 @@
           "named": true
         },
         {
+          "type": "primary_expression",
+          "named": true
+        },
+        {
           "type": "switch_match",
           "named": true
         }
