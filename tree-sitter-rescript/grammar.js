@@ -160,7 +160,7 @@ module.exports = grammar({
       field('name', $.module_identifier),
       optional(seq(
         ':',
-        field('signature', choice($.block, $.module_expression)),
+        field('signature', choice($.block, $.module_expression, $.functor)),
       )),
       optional(seq(
         '=',
@@ -453,6 +453,7 @@ module.exports = grammar({
     parenthesized_expression: $ => seq(
       '(',
       $.expression,
+      optional($.type_annotation),
       ')'
     ),
 
@@ -632,7 +633,7 @@ module.exports = grammar({
     raise_expression: $ => prec('call', seq(
       'raise',
       '(',
-      $.variant,
+      commaSep1t($.variant),
       ')',
     )),
 
@@ -645,17 +646,23 @@ module.exports = grammar({
         $.variant_identifier,
         $.nested_variant_identifier,
         $.parenthesized_expression,
+        $.block,
       ),
     )),
 
     call_arguments: $ => seq(
       '(',
       optional($.uncurry),
-      optional(commaSep1t(choice(
-        $.expression,
-        $.labeled_argument,
-      ))),
+      optional(commaSep1t($._call_argument)),
       ')'
+    ),
+
+    _call_argument: $ => choice(
+      seq(
+        $.expression,
+        optional($.type_annotation),
+      ),
+      $.labeled_argument,
     ),
 
     labeled_argument: $ => seq(
@@ -667,6 +674,7 @@ module.exports = grammar({
           '=',
           optional('?'),
           field('value', $.expression),
+          optional(field('type', $.type_annotation)),
         ),
       )),
     ),
@@ -1102,7 +1110,10 @@ module.exports = grammar({
 
     variant_arguments: $ => seq(
       '(',
-      commaSept($.expression),
+      commaSept(seq(
+        $.expression,
+        optional($.type_annotation),
+      )),
       ')',
     ),
 
