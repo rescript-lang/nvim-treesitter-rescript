@@ -634,8 +634,17 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "="
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "+="
+                    }
+                  ]
                 },
                 {
                   "type": "CHOICE",
@@ -3187,6 +3196,10 @@
               {
                 "type": "SYMBOL",
                 "name": "variant_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "polyvar_identifier"
               },
               {
                 "type": "SYMBOL",
@@ -6369,6 +6382,10 @@
         {
           "type": "SYMBOL",
           "name": "type_identifier_path"
+        },
+        {
+          "type": "STRING",
+          "value": ".."
         }
       ]
     },

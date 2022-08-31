@@ -230,7 +230,7 @@ module.exports = grammar({
       $.type_identifier,
       optional($.type_parameters),
       optional(seq(
-        '=',
+        choice('=', '+='),
         optional('private'),
         $._type,
         optional(seq(
@@ -663,6 +663,7 @@ module.exports = grammar({
         $.value_identifier,
         $.value_identifier_path,
         $.variant_identifier,
+        $.polyvar_identifier,
         $.nested_variant_identifier,
         $.parenthesized_expression,
         $.block,
@@ -1151,6 +1152,7 @@ module.exports = grammar({
       choice(
         $.type_identifier,
         $.type_identifier_path,
+        ".."
       ),
 
     type_identifier_path: $ => seq(

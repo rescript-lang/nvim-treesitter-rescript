@@ -4,6 +4,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "..",
+        "named": false
+      },
+      {
         "type": "function_type",
         "named": true
       },
@@ -665,6 +669,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "..",
+            "named": false
+          },
           {
             "type": "type_identifier",
             "named": true
@@ -2211,6 +2219,10 @@
           "named": true
         },
         {
+          "type": "polyvar_identifier",
+          "named": true
+        },
+        {
           "type": "primary_expression",
           "named": true
         },
@@ -2246,7 +2258,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "decorator",
@@ -2360,7 +2372,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "type_identifier",
@@ -3078,7 +3090,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "decorator",
@@ -3472,6 +3484,10 @@
   },
   {
     "type": "+.",
+    "named": false
+  },
+  {
+    "type": "+=",
     "named": false
   },
   {
