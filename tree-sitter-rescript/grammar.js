@@ -32,6 +32,7 @@ module.exports = grammar({
       'member',
       'call',
       $.spread_element,
+      $.await_expression,
       'binary_times',
       'binary_plus',
       'binary_compare',
@@ -58,6 +59,7 @@ module.exports = grammar({
     [$.primary_expression, $.record_pattern],
     [$.primary_expression, $.spread_pattern],
     [$.primary_expression, $._literal_pattern],
+    [$.primary_expression, $._jsx_child],
     [$.tuple_pattern, $._formal_parameter],
     [$.primary_expression, $._formal_parameter],
     [$.primary_expression, $.record_field],
@@ -77,7 +79,8 @@ module.exports = grammar({
     [$.polyvar, $.polyvar_pattern],
     [$._pattern],
     [$._record_element, $.jsx_expression],
-    [$.record_field, $._record_single_field],
+    [$._record_element, $._record_single_field],
+    [$._record_pun_field, $._record_single_pun_field],
     [$._record_field_name, $.record_pattern],
     [$.decorator],
     [$._statement, $._one_or_more_statements],
@@ -114,6 +117,7 @@ module.exports = grammar({
       $.expression_statement,
       $.declaration,
       $.open_statement,
+      $.assert_statement,
       $.include_statement,
     ),
 
@@ -326,6 +330,7 @@ module.exports = grammar({
       repeat($.decorator),
       optional('mutable'),
       alias($.value_identifier, $.property_identifier),
+      optional('?'),
       $.type_annotation,
     ),
 
@@ -417,6 +422,7 @@ module.exports = grammar({
       $.for_expression,
       $.while_expression,
       $.mutation_expression,
+      $.await_expression,
       $.block,
     ),
 
@@ -463,6 +469,7 @@ module.exports = grammar({
     ),
 
     function: $ => prec.left(seq(
+      optional('async'),
       choice(
         field('parameter', $.value_identifier),
         $._definition_signature
@@ -474,7 +481,8 @@ module.exports = grammar({
     record: $ => seq(
       '{',
       choice(
-        alias($._record_single_field, $.record_field),
+        $._record_single_field,
+        $._record_single_pun_field,
         commaSep2t($._record_element),
       ),
       '}',
@@ -483,20 +491,29 @@ module.exports = grammar({
     _record_element: $ => choice(
       $.spread_element,
       $.record_field,
+      alias($._record_pun_field, $.record_field),
     ),
 
     record_field: $ => seq(
       $._record_field_name,
-      optional(seq(
-        ':',
-        $.expression,
-      )),
+      ':',
+      optional('?'),
+      $.expression,
+    ),
+
+    _record_pun_field: $ => seq(
+      optional('?'),
+      $._record_field_name,
     ),
 
     _record_single_field: $ => seq(
+      $.record_field,
+      optional(','),
+    ),
+
+    _record_single_pun_field: $ => seq(
+      '?',
       $._record_field_name,
-      ':',
-      $.expression,
       optional(','),
     ),
 
@@ -624,6 +641,8 @@ module.exports = grammar({
       'as',
       $.value_identifier,
     ),
+
+    assert_statement: $ => seq('assert', $.expression),
 
     call_expression: $ => prec('call', seq(
       field('function', $.primary_expression),
@@ -855,6 +874,7 @@ module.exports = grammar({
       $.jsx_fragment,
       $.block,
       $.spread_element,
+      $.member_expression
     ),
 
     jsx_opening_element: $ => prec.dynamic(-1, seq(
@@ -922,6 +942,11 @@ module.exports = grammar({
       $.value_identifier,
       $.member_expression,
       $.subscript_expression,
+    ),
+
+    await_expression: $ => seq(
+      'await',
+      $.expression,
     ),
 
     decorator: $ => seq(

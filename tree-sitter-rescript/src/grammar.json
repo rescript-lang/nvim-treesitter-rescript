@@ -116,6 +116,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "assert_statement"
+        },
+        {
+          "type": "SYMBOL",
           "name": "include_statement"
         }
       ]
@@ -1273,6 +1277,18 @@
           "value": "property_identifier"
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "?"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "type_annotation"
         }
@@ -1867,6 +1883,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "await_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "block"
         }
       ]
@@ -2048,6 +2068,18 @@
             "type": "CHOICE",
             "members": [
               {
+                "type": "STRING",
+                "value": "async"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
                 "type": "FIELD",
                 "name": "parameter",
                 "content": {
@@ -2087,13 +2119,12 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_record_single_field"
-              },
-              "named": true,
-              "value": "record_field"
+              "type": "SYMBOL",
+              "name": "_record_single_field"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_record_single_pun_field"
             },
             {
               "type": "SEQ",
@@ -2168,6 +2199,15 @@
         {
           "type": "SYMBOL",
           "name": "record_field"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_record_pun_field"
+          },
+          "named": true,
+          "value": "record_field"
         }
       ]
     },
@@ -2179,25 +2219,45 @@
           "name": "_record_field_name"
         },
         {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
           "type": "CHOICE",
           "members": [
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": ":"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "expression"
-                }
-              ]
+              "type": "STRING",
+              "value": "?"
             },
             {
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
+    },
+    "_record_pun_field": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "?"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_record_field_name"
         }
       ]
     },
@@ -2206,15 +2266,32 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_record_field_name"
+          "name": "record_field"
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ","
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_record_single_pun_field": {
+      "type": "SEQ",
+      "members": [
+        {
           "type": "STRING",
-          "value": ":"
+          "value": "?"
         },
         {
           "type": "SYMBOL",
-          "name": "expression"
+          "name": "_record_field_name"
         },
         {
           "type": "CHOICE",
@@ -2964,6 +3041,19 @@
         {
           "type": "SYMBOL",
           "name": "value_identifier"
+        }
+      ]
+    },
+    "assert_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "assert"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
         }
       ]
     },
@@ -4403,6 +4493,10 @@
         {
           "type": "SYMBOL",
           "name": "spread_element"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "member_expression"
         }
       ]
     },
@@ -4680,6 +4774,19 @@
         {
           "type": "SYMBOL",
           "name": "subscript_expression"
+        }
+      ]
+    },
+    "await_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "await"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
         }
       ]
     },
@@ -7403,6 +7510,10 @@
       "_literal_pattern"
     ],
     [
+      "primary_expression",
+      "_jsx_child"
+    ],
+    [
       "tuple_pattern",
       "_formal_parameter"
     ],
@@ -7475,8 +7586,12 @@
       "jsx_expression"
     ],
     [
-      "record_field",
+      "_record_element",
       "_record_single_field"
+    ],
+    [
+      "_record_pun_field",
+      "_record_single_pun_field"
     ],
     [
       "_record_field_name",
@@ -7514,6 +7629,10 @@
       {
         "type": "SYMBOL",
         "name": "spread_element"
+      },
+      {
+        "type": "SYMBOL",
+        "name": "await_expression"
       },
       {
         "type": "STRING",
