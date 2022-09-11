@@ -216,10 +216,6 @@
         "named": true
       },
       {
-        "type": "raise_expression",
-        "named": true
-      },
-      {
         "type": "record",
         "named": true
       },
@@ -311,6 +307,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "decorator",
+          "named": true
+        },
         {
           "type": "expression",
           "named": true
@@ -418,6 +418,10 @@
           "named": true
         },
         {
+          "type": "unit",
+          "named": true
+        },
+        {
           "type": "value_identifier",
           "named": true
         },
@@ -433,9 +437,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "type_annotation",
+          "named": true
+        },
         {
           "type": "value_identifier",
           "named": true
@@ -861,6 +869,10 @@
           "named": true
         },
         {
+          "type": "unit",
+          "named": true
+        },
+        {
           "type": "value_identifier",
           "named": true
         },
@@ -879,6 +891,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "nested_variant_identifier",
+          "named": true
+        },
         {
           "type": "variant_identifier",
           "named": true
@@ -977,6 +993,10 @@
           "named": true
         },
         {
+          "type": "decorator",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         },
@@ -1031,15 +1051,15 @@
           "named": true
         },
         {
-          "type": "labeled_parameter",
-          "named": true
-        },
-        {
           "type": "list_pattern",
           "named": true
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "parameter",
           "named": true
         },
         {
@@ -1072,14 +1092,6 @@
         },
         {
           "type": "type_annotation",
-          "named": true
-        },
-        {
-          "type": "type_parameter",
-          "named": true
-        },
-        {
-          "type": "uncurry",
           "named": true
         },
         {
@@ -1732,11 +1744,7 @@
           "named": true
         },
         {
-          "type": "as_aliasing",
-          "named": true
-        },
-        {
-          "type": "character",
+          "type": "decorator",
           "named": true
         },
         {
@@ -1744,39 +1752,11 @@
           "named": true
         },
         {
-          "type": "false",
-          "named": true
-        },
-        {
           "type": "list_pattern",
           "named": true
         },
         {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "polyvar_pattern",
-          "named": true
-        },
-        {
-          "type": "polyvar_type_pattern",
-          "named": true
-        },
-        {
           "type": "record_pattern",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "template_string",
-          "named": true
-        },
-        {
-          "type": "true",
           "named": true
         },
         {
@@ -1793,10 +1773,6 @@
         },
         {
           "type": "value_identifier",
-          "named": true
-        },
-        {
-          "type": "variant_pattern",
           "named": true
         }
       ]
@@ -1887,6 +1863,10 @@
         },
         {
           "type": "type_annotation",
+          "named": true
+        },
+        {
+          "type": "unit",
           "named": true
         },
         {
@@ -2169,7 +2149,23 @@
           "named": true
         },
         {
+          "type": "array_pattern",
+          "named": true
+        },
+        {
+          "type": "as_aliasing",
+          "named": true
+        },
+        {
+          "type": "character",
+          "named": true
+        },
+        {
           "type": "decorator",
+          "named": true
+        },
+        {
+          "type": "false",
           "named": true
         },
         {
@@ -2177,7 +2173,63 @@
           "named": true
         },
         {
+          "type": "list_pattern",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "polyvar_pattern",
+          "named": true
+        },
+        {
+          "type": "polyvar_type_pattern",
+          "named": true
+        },
+        {
+          "type": "record_pattern",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "template_string",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "tuple_pattern",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
+          "named": true
+        },
+        {
+          "type": "type_parameter",
+          "named": true
+        },
+        {
           "type": "uncurry",
+          "named": true
+        },
+        {
+          "type": "unit",
+          "named": true
+        },
+        {
+          "type": "value_identifier",
+          "named": true
+        },
+        {
+          "type": "variant_pattern",
           "named": true
         }
       ]
@@ -2191,6 +2243,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "decorator",
+          "named": true
+        },
         {
           "type": "expression",
           "named": true
@@ -2362,6 +2418,10 @@
         {
           "type": "polyvar_declaration",
           "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
         }
       ]
     }
@@ -2407,21 +2467,6 @@
         },
         {
           "type": "value_identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "raise_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "variant",
           "named": true
         }
       ]
@@ -2577,6 +2622,10 @@
         },
         {
           "type": "type_annotation",
+          "named": true
+        },
+        {
+          "type": "unit",
           "named": true
         },
         {
@@ -2834,6 +2883,10 @@
           "named": true
         },
         {
+          "type": "unit",
+          "named": true
+        },
+        {
           "type": "value_identifier",
           "named": true
         },
@@ -3041,6 +3094,10 @@
         },
         {
           "type": "type_annotation",
+          "named": true
+        },
+        {
+          "type": "unit",
           "named": true
         },
         {
@@ -3687,7 +3744,7 @@
     "named": false
   },
   {
-    "type": "list",
+    "type": "list{",
     "named": false
   },
   {
@@ -3712,10 +3769,6 @@
   },
   {
     "type": "private",
-    "named": false
-  },
-  {
-    "type": "raise",
     "named": false
   },
   {
@@ -3749,6 +3802,10 @@
   {
     "type": "unit_type",
     "named": true
+  },
+  {
+    "type": "when",
+    "named": false
   },
   {
     "type": "while",

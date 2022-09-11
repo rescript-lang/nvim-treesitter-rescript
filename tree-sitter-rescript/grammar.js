@@ -60,8 +60,8 @@ module.exports = grammar({
     [$.primary_expression, $.spread_pattern],
     [$.primary_expression, $._literal_pattern],
     [$.primary_expression, $._jsx_child],
-    [$.tuple_pattern, $._formal_parameter],
-    [$.primary_expression, $._formal_parameter],
+    [$.tuple_pattern, $.parameter],
+    [$.primary_expression, $.parameter],
     [$.primary_expression, $.record_field],
     [$.module_identifier_path, $.module_expression],
     [$.tuple_type, $.function_type_parameter],
@@ -86,6 +86,8 @@ module.exports = grammar({
     [$._statement, $._one_or_more_statements],
     [$._simple_extension],
     [$._inline_type, $.function_type_parameters],
+    [$.primary_expression, $.parameter, $._pattern],
+    [$.parameter, $._pattern]
   ],
 
   rules: {
@@ -217,6 +219,7 @@ module.exports = grammar({
       'exception',
       $.variant_identifier,
       optional($.variant_parameters),
+      optional(seq('=', choice($.variant_identifier, $.nested_variant_identifier)))
     ),
 
     type_declaration: $ => seq(
@@ -296,12 +299,13 @@ module.exports = grammar({
       ')',
     ),
 
-    polyvar_type: $ => seq(
+    polyvar_type: $ => prec.left(seq(
       choice('[', '[>', '[<',),
       optional('|'),
       barSep1($.polyvar_declaration),
       ']',
-    ),
+      optional(seq('as', $.type_identifier))
+    )),
 
     polyvar_declaration: $ => prec.right(
       choice(
@@ -346,10 +350,15 @@ module.exports = grammar({
 
     _object_type_field: $ => alias($.object_type_field, $.field),
 
-    object_type_field: $ => seq(
-      alias($.string, $.property_identifier),
-      ':',
-      $._type,
+    object_type_field: $ => choice(
+      seq('...', choice($.type_identifier, $.type_identifier_path)),
+      seq(
+        repeat($.decorator),
+        alias($.string, $.property_identifier),
+        ':',
+        $._type,
+      ),
+
     ),
 
     generic_type: $ => seq(
@@ -397,16 +406,26 @@ module.exports = grammar({
     ),
 
     _let_binding: $ => seq(
-      choice($._pattern, $.unit),
+      $._binding_pattern,
       optional($.type_annotation),
       optional(seq(
         '=',
+        repeat($.decorator),
         $.expression,
         optional(seq(
           'and',
           $._let_binding,
         )),
       )),
+    ),
+
+    _binding_pattern: $ => choice(
+      $.value_identifier,
+      $.tuple_pattern,
+      $.record_pattern,
+      $.array_pattern,
+      $.list_pattern,
+      $.unit
     ),
 
     expression_statement: $ => $.expression,
@@ -449,7 +468,6 @@ module.exports = grammar({
       $.switch_expression,
       $.try_expression,
       $.call_expression,
-      $.raise_expression,
       $.pipe_expression,
       $.subscript_expression,
       $.member_expression,
@@ -458,6 +476,7 @@ module.exports = grammar({
 
     parenthesized_expression: $ => seq(
       '(',
+      repeat($.decorator),
       $.expression,
       optional($.type_annotation),
       ')'
@@ -553,8 +572,7 @@ module.exports = grammar({
     ),
 
     list: $ => seq(
-      'list',
-      '{',
+      'list{',
       optional(commaSep1t($._list_element)),
       '}'
     ),
@@ -601,12 +619,20 @@ module.exports = grammar({
 
     _switch_pattern: $ => barSep1(choice(
       alias($._switch_exception_pattern, $.exception),
+      $._parenthesized_switch_pattern,
       $._switch_value_pattern,
+      $._switch_range_pattern,
     )),
 
     _switch_exception_pattern: $ => seq(
       'exception',
       $._switch_value_pattern,
+    ),
+
+    _parenthesized_switch_pattern: $ => seq(
+      '(',
+      $._switch_pattern,
+      ')',
     ),
 
     _switch_value_pattern: $ => seq(
@@ -615,8 +641,14 @@ module.exports = grammar({
     ),
 
     switch_pattern_condition: $ => seq(
-      'if',
+      choice('if', 'when'),
       $.expression,
+    ),
+
+    _switch_range_pattern: $ => seq(
+      $._literal_pattern,
+      '..',
+      $._literal_pattern,
     ),
 
     polyvar_type_pattern: $ => seq(
@@ -637,23 +669,17 @@ module.exports = grammar({
       '}',
     ),
 
-    as_aliasing: $ => seq(
+    as_aliasing: $ => prec.left(seq(
       'as',
       $.value_identifier,
-    ),
+      optional($.type_annotation)
+    )),
 
     assert_statement: $ => seq('assert', $.expression),
 
     call_expression: $ => prec('call', seq(
       field('function', $.primary_expression),
       field('arguments', alias($.call_arguments, $.arguments)),
-    )),
-
-    raise_expression: $ => prec('call', seq(
-      'raise',
-      '(',
-      commaSep1t($.variant),
-      ')',
     )),
 
     pipe_expression: $ => prec.left(seq(
@@ -679,6 +705,7 @@ module.exports = grammar({
 
     _call_argument: $ => choice(
       seq(
+        repeat($.decorator),
         $.expression,
         optional($.type_annotation),
       ),
@@ -711,11 +738,11 @@ module.exports = grammar({
 
     formal_parameters: $ => seq(
       '(',
-      optional(commaSep1t($._formal_parameter)),
+      optional(commaSep1t($.parameter)),
       ')'
     ),
 
-    _formal_parameter: $ => seq(
+    parameter: $ => seq(
       optional($.uncurry),
       choice(
         $._pattern,
@@ -755,6 +782,7 @@ module.exports = grammar({
         $._literal_pattern,
         $._destructuring_pattern,
         $.polyvar_type_pattern,
+        $.unit
       )),
       optional($.type_annotation),
       optional($.as_aliasing),
@@ -830,8 +858,7 @@ module.exports = grammar({
     ),
 
     list_pattern: $ => seq(
-      'list',
-      '{',
+      'list{',
       optional(commaSep1t($._collection_element_pattern)),
       '}',
     ),
@@ -1261,12 +1288,19 @@ module.exports = grammar({
         )
       )
 
+      const int64 = seq(
+        optional(choice('-', '+')),
+        choice(decimal_integer_literal, binary_literal, octal_literal, hex_literal),
+        'L'
+      )
+
       return token(choice(
         hex_literal,
         decimal_literal,
         binary_literal,
         octal_literal,
         bigint_literal,
+        int64
       ))
     },
 

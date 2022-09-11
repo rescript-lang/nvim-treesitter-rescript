@@ -10,8 +10,13 @@
 [
   (type_identifier)
   (unit_type)
-  "list"
+  (list "list{")
+  (list_pattern "list{")
 ] @type
+
+; To ensure that the closing curly bracket is the same color (scope) as the opening curly bracket
+(list "}" @type (#set! "priority" 105))
+(list_pattern "}" @type (#set! "priority" 105))
 
 [
   (variant_identifier)
@@ -111,14 +116,18 @@
   "if"
   "else"
   "switch"
+  "when"
 ] @conditional
 
 [
   "exception"
   "try"
   "catch"
-  "raise"
 ] @exception
+
+(call_expression
+  function: (value_identifier) @exception
+  (#eq? @exception "raise"))
 
 [
   "for"
@@ -185,6 +194,7 @@
   "~"
   "?"
   "=>"
+  ".."
   "..."
 ] @punctuation.special
 
