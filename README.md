@@ -1,6 +1,6 @@
-# ReScript parser for nvim-treesitter
+# Reason parser for nvim-treesitter
 
-This repository contains a thin wrapper around [ReScript parser for Tree-sitter](https://github.com/nkrkv/tree-sitter-rescript/) to make it an easy-to-install NeoVim plugin.
+This repository contains a thin wrapper around [Reason parser for Tree-sitter](https://github.com/danielo515/tree-sitter-reason/) to make it an easy-to-install NeoVim plugin.
 
 ## Requirements
 
@@ -12,21 +12,21 @@ This repository contains a thin wrapper around [ReScript parser for Tree-sitter]
 Add the plugin in your `init.vim`:
 
 ```vim
-Plug 'nkrkv/nvim-treesitter-rescript'
+Plug 'danielo515/nvim-treesitter-reason'
 ```
 
 or using [packer.nvim](https://github.com/wbthomason/packer.nvim):
 
 ```lua
-use 'nkrkv/nvim-treesitter-rescript'
+use 'danielo515/nvim-treesitter-reason'
 ```
 
 Install the newly available parser:
 
 ```
-:TSInstall rescript
+:TSInstall reason
 ```
 
 ## Contributing
 
-This is a technical repo containing a copy of the upstream [ReScript parser for Tree-sitter](https://github.com/nkrkv/tree-sitter-rescript/). Please, open issues and PR’s there. Unless the problem is indeed related to the plugin wrapping.
+This is a technical repo containing a copy of the upstream [Reason parser for Tree-sitter](https://github.com/danielo515/tree-sitter-reason/). Please, open issues and PR’s there. Unless the problem is indeed related to the plugin wrapping.
