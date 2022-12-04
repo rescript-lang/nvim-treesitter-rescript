@@ -10,9 +10,11 @@
 [
   (type_identifier)
   (unit_type)
-  (list "list{")
-  (list_pattern "list{")
 ] @type
+
+
+(list "list{" @type)
+(list_pattern "list{" @type)
 
 ; To ensure that the closing curly bracket is the same color (scope) as the opening curly bracket
 (list "}" @type (#set! "priority" 105))
@@ -66,12 +68,20 @@
 ; Functions
 ;----------
 
+; parameter(s) in parens
 [
- (formal_parameters (value_identifier))
+ (parameter (value_identifier))
  (labeled_parameter (value_identifier))
 ] @parameter
 
+; single parameter with no parens
 (function parameter: (value_identifier) @parameter)
+
+; first-level descructuring (required for nvim-tree-sitter as it only matches direct
+; children and the above patterns do not match destructuring patterns in NeoVim)
+(parameter (tuple_pattern (tuple_item_pattern (value_identifier) @parameter)))
+(parameter (array_pattern (value_identifier) @parameter))
+(parameter (record_pattern (value_identifier) @parameter))
 
 ; Meta
 ;-----
@@ -108,9 +118,14 @@
   "type"
   "and"
   "assert"
-  "async"
   "await"
+  "with"
+  "unpack"
+  "lazy"
+  "constraint"
 ] @keyword
+
+((function "async" @keyword))
 
 [
   "if"
@@ -150,6 +165,7 @@
   "-"
   "-."
   "*"
+  "**"
   "*."
   "/."
   "<="
@@ -166,6 +182,7 @@
   "->"
   "|>"
   ":>"
+  "+="
   (uncurry)
 ] @operator
 
