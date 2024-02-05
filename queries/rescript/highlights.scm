@@ -80,11 +80,7 @@
 ; Meta
 ;-----
 
-[
- "@"
- "@@"
- (decorator_identifier)
-] @annotation
+(decorator_identifier) @annotation
 
 (extension_identifier) @keyword
 ("%") @keyword
@@ -114,12 +110,13 @@
   "assert"
   "await"
   "with"
-  "unpack"
   "lazy"
   "constraint"
 ] @keyword
 
 ((function "async" @keyword))
+
+(module_unpack "unpack" @keyword)
 
 [
   "if"
