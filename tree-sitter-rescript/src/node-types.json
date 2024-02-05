@@ -8,6 +8,10 @@
         "named": false
       },
       {
+        "type": "as_aliasing_type",
+        "named": true
+      },
+      {
         "type": "function_type",
         "named": true
       },
@@ -320,14 +324,6 @@
         "named": true
       },
       {
-        "type": "decorated",
-        "named": true
-      },
-      {
-        "type": "decorator_statement",
-        "named": true
-      },
-      {
         "type": "expression_statement",
         "named": true
       },
@@ -365,10 +361,6 @@
       "required": false,
       "types": [
         {
-          "type": "decorator",
-          "named": true
-        },
-        {
           "type": "expression",
           "named": true
         },
@@ -400,10 +392,6 @@
       "required": false,
       "types": [
         {
-          "type": "decorator",
-          "named": true
-        },
-        {
           "type": "expression",
           "named": true
         }
@@ -428,10 +416,6 @@
         },
         {
           "type": "character",
-          "named": true
-        },
-        {
-          "type": "decorator",
           "named": true
         },
         {
@@ -625,11 +609,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "type_identifier",
+          "type": "_type",
           "named": true
         }
       ]
@@ -912,29 +896,6 @@
     }
   },
   {
-    "type": "decorated",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "decorator",
-          "named": true
-        },
-        {
-          "type": "expression_statement",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "decorator",
     "named": true,
     "fields": {},
@@ -967,30 +928,6 @@
         },
         {
           "type": "type_annotation",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "decorator_identifier",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "decorator_statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "decorator_arguments",
-          "named": true
-        },
-        {
-          "type": "decorator_identifier",
           "named": true
         }
       ]
@@ -1187,11 +1124,6 @@
     }
   },
   {
-    "type": "extension_identifier",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "external_declaration",
     "named": true,
     "fields": {},
@@ -1224,10 +1156,6 @@
       "types": [
         {
           "type": "_type",
-          "named": true
-        },
-        {
-          "type": "decorator",
           "named": true
         },
         {
@@ -1411,16 +1339,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "decorator",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1607,10 +1525,6 @@
       "required": true,
       "types": [
         {
-          "type": "as_aliasing_type",
-          "named": true
-        },
-        {
           "type": "type_arguments",
           "named": true
         },
@@ -1668,11 +1582,27 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "extension_expression",
+          "named": true
+        },
+        {
+          "type": "functor",
+          "named": true
+        },
+        {
           "type": "module_expression",
+          "named": true
+        },
+        {
+          "type": "module_type_annotation",
           "named": true
         }
       ]
@@ -1990,16 +1920,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "decorator",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -2064,7 +1984,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -2072,7 +1992,15 @@
           "named": true
         },
         {
+          "type": "as_aliasing",
+          "named": true
+        },
+        {
           "type": "character",
+          "named": true
+        },
+        {
+          "type": "exception_pattern",
           "named": true
         },
         {
@@ -2080,11 +2008,23 @@
           "named": true
         },
         {
+          "type": "lazy_pattern",
+          "named": true
+        },
+        {
           "type": "list_pattern",
           "named": true
         },
         {
+          "type": "module_pack",
+          "named": true
+        },
+        {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "or_pattern",
           "named": true
         },
         {
@@ -2097,6 +2037,10 @@
         },
         {
           "type": "polyvar_type_pattern",
+          "named": true
+        },
+        {
+          "type": "range_pattern",
           "named": true
         },
         {
@@ -2117,6 +2061,10 @@
         },
         {
           "type": "tuple_pattern",
+          "named": true
+        },
+        {
+          "type": "unit",
           "named": true
         },
         {
@@ -2240,13 +2188,9 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
-        {
-          "type": "decorator",
-          "named": true
-        },
         {
           "type": "type_annotation",
           "named": true
@@ -2263,10 +2207,6 @@
       "required": true,
       "types": [
         {
-          "type": "decorator",
-          "named": true
-        },
-        {
           "type": "let_binding",
           "named": true
         }
@@ -2281,10 +2221,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "decorator",
-          "named": true
-        },
         {
           "type": "expression",
           "named": true
@@ -2314,10 +2250,6 @@
         },
         {
           "type": "character",
-          "named": true
-        },
-        {
-          "type": "decorator",
           "named": true
         },
         {
@@ -2754,10 +2686,6 @@
       "required": false,
       "types": [
         {
-          "type": "as_aliasing_type",
-          "named": true
-        },
-        {
           "type": "field",
           "named": true
         }
@@ -2907,10 +2835,6 @@
           "named": true
         },
         {
-          "type": "decorator",
-          "named": true
-        },
-        {
           "type": "exception_pattern",
           "named": true
         },
@@ -3001,10 +2925,6 @@
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "decorator",
-          "named": true
-        },
         {
           "type": "expression",
           "named": true
@@ -3117,6 +3037,10 @@
         },
         {
           "type": "tuple_pattern",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
           "named": true
         },
         {
@@ -3239,10 +3163,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "decorator",
-          "named": true
-        },
         {
           "type": "function_type",
           "named": true
@@ -3374,14 +3294,6 @@
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "as_aliasing_type",
-          "named": true
-        },
-        {
-          "type": "decorator",
-          "named": true
-        },
         {
           "type": "polyvar_declaration",
           "named": true
@@ -3638,10 +3550,6 @@
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "decorator",
-          "named": true
-        },
         {
           "type": "property_identifier",
           "named": true
@@ -3919,7 +3827,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "template_string_content",
@@ -4011,11 +3919,7 @@
       "required": true,
       "types": [
         {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "primary_expression",
+          "type": "expression",
           "named": true
         },
         {
@@ -4033,10 +3937,6 @@
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "decorator",
-          "named": true
-        },
         {
           "type": "expression",
           "named": true
@@ -4062,10 +3962,6 @@
         },
         {
           "type": "character",
-          "named": true
-        },
-        {
-          "type": "decorator",
           "named": true
         },
         {
@@ -4186,13 +4082,9 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
-        {
-          "type": "decorator",
-          "named": true
-        },
         {
           "type": "function_type",
           "named": true
@@ -4363,10 +4255,6 @@
       "required": true,
       "types": [
         {
-          "type": "decorator",
-          "named": true
-        },
-        {
           "type": "type_binding",
           "named": true
         }
@@ -4519,10 +4407,6 @@
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "decorator",
-          "named": true
-        },
         {
           "type": "type_annotation",
           "named": true
@@ -4776,14 +4660,6 @@
     "named": false
   },
   {
-    "type": "@",
-    "named": false
-  },
-  {
-    "type": "@@",
-    "named": false
-  },
-  {
     "type": "[",
     "named": false
   },
@@ -4840,6 +4716,10 @@
     "named": false
   },
   {
+    "type": "decorator_identifier",
+    "named": true
+  },
+  {
     "type": "downto",
     "named": false
   },
@@ -4858,6 +4738,10 @@
   {
     "type": "export",
     "named": false
+  },
+  {
+    "type": "extension_identifier",
+    "named": true
   },
   {
     "type": "external",
